@@ -47,26 +47,14 @@ namespace GeorgianGym.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Exercises",
-                columns: table => new
-                {
-                    ExerciseId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    exercise = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Exercises", x => x.ExerciseId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Memberships",
                 columns: table => new
                 {
                     MembershipId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    status = table.Column<bool>(nullable: false),
-                    type = table.Column<string>(nullable: true)
+                    type = table.Column<string>(nullable: true),
+                    price = table.Column<float>(nullable: false),
+                    description = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -195,27 +183,6 @@ namespace GeorgianGym.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Schedules",
-                columns: table => new
-                {
-                    ScheduleId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ExerciseId = table.Column<int>(nullable: false),
-                    UserId = table.Column<int>(nullable: false),
-                    day = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Schedules", x => x.ScheduleId);
-                    table.ForeignKey(
-                        name: "FK_Schedule_ExerciseId",
-                        column: x => x.ExerciseId,
-                        principalTable: "Exercises",
-                        principalColumn: "ExerciseId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Userss",
                 columns: table => new
                 {
@@ -228,8 +195,7 @@ namespace GeorgianGym.Migrations
                     email = table.Column<string>(nullable: true),
                     phoneNumber = table.Column<string>(nullable: true),
                     address = table.Column<string>(nullable: true),
-                    gender = table.Column<string>(nullable: true),
-                    ScheduleId = table.Column<int>(nullable: true)
+                    gender = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -241,16 +207,32 @@ namespace GeorgianGym.Migrations
                         principalColumn: "MembershipId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Userss_Schedules_ScheduleId",
-                        column: x => x.ScheduleId,
-                        principalTable: "Schedules",
-                        principalColumn: "ScheduleId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_Users_TrainerId",
                         column: x => x.TrainerId,
                         principalTable: "Trainers",
                         principalColumn: "TrainerId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Schedules",
+                columns: table => new
+                {
+                    ScheduleId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UsersId = table.Column<int>(nullable: false),
+                    exercise = table.Column<string>(nullable: true),
+                    startTime = table.Column<DateTime>(nullable: false),
+                    endTime = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Schedules", x => x.ScheduleId);
+                    table.ForeignKey(
+                        name: "FK_Schedule_UserId",
+                        column: x => x.UsersId,
+                        principalTable: "Userss",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -294,14 +276,9 @@ namespace GeorgianGym.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Schedules_ExerciseId",
+                name: "IX_Schedules_UsersId",
                 table: "Schedules",
-                column: "ExerciseId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Schedules_UserId",
-                table: "Schedules",
-                column: "UserId");
+                column: "UsersId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Userss_MembershipId",
@@ -309,34 +286,13 @@ namespace GeorgianGym.Migrations
                 column: "MembershipId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Userss_ScheduleId",
-                table: "Userss",
-                column: "ScheduleId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Userss_TrainerId",
                 table: "Userss",
                 column: "TrainerId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Schedule_UserId",
-                table: "Schedules",
-                column: "UserId",
-                principalTable: "Userss",
-                principalColumn: "UserId",
-                onDelete: ReferentialAction.Cascade);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Schedule_ExerciseId",
-                table: "Schedules");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Schedule_UserId",
-                table: "Schedules");
-
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -353,22 +309,19 @@ namespace GeorgianGym.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Schedules");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Exercises");
-
-            migrationBuilder.DropTable(
                 name: "Userss");
 
             migrationBuilder.DropTable(
                 name: "Memberships");
-
-            migrationBuilder.DropTable(
-                name: "Schedules");
 
             migrationBuilder.DropTable(
                 name: "Trainers");

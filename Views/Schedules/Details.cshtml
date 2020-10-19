@@ -1,0 +1,42 @@
+﻿@model GeorgianGym.Models.Schedule
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Schedule</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.exercise)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.exercise)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.startTime)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.startTime)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.endTime)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.endTime)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Users)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Users.UserId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ScheduleId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

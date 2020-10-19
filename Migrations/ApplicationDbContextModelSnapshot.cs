@@ -19,21 +19,6 @@ namespace GeorgianGym.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("GeorgianGym.Models.Exercise", b =>
-                {
-                    b.Property<int>("ExerciseId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("exercise")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ExerciseId");
-
-                    b.ToTable("Exercises");
-                });
-
             modelBuilder.Entity("GeorgianGym.Models.Membership", b =>
                 {
                     b.Property<int>("MembershipId")
@@ -41,8 +26,11 @@ namespace GeorgianGym.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("status")
-                        .HasColumnType("bit");
+                    b.Property<string>("description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("price")
+                        .HasColumnType("real");
 
                     b.Property<string>("type")
                         .HasColumnType("nvarchar(max)");
@@ -59,20 +47,21 @@ namespace GeorgianGym.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ExerciseId")
+                    b.Property<int>("UsersId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("endTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("day")
+                    b.Property<string>("exercise")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("startTime")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("ScheduleId");
 
-                    b.HasIndex("ExerciseId");
-
-                    b.HasIndex("UserId");
+                    b.HasIndex("UsersId");
 
                     b.ToTable("Schedules");
                 });
@@ -108,9 +97,6 @@ namespace GeorgianGym.Migrations
                     b.Property<int>("MembershipId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ScheduleId")
-                        .HasColumnType("int");
-
                     b.Property<int>("TrainerId")
                         .HasColumnType("int");
 
@@ -135,8 +121,6 @@ namespace GeorgianGym.Migrations
                     b.HasKey("UserId");
 
                     b.HasIndex("MembershipId");
-
-                    b.HasIndex("ScheduleId");
 
                     b.HasIndex("TrainerId");
 
@@ -345,16 +329,9 @@ namespace GeorgianGym.Migrations
 
             modelBuilder.Entity("GeorgianGym.Models.Schedule", b =>
                 {
-                    b.HasOne("GeorgianGym.Models.Exercise", "Exercises")
-                        .WithMany("Schedules")
-                        .HasForeignKey("ExerciseId")
-                        .HasConstraintName("FK_Schedule_ExerciseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("GeorgianGym.Models.Users", "Users")
-                        .WithMany("Schedules")
-                        .HasForeignKey("UserId")
+                        .WithMany("Schedule")
+                        .HasForeignKey("UsersId")
                         .HasConstraintName("FK_Schedule_UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -368,10 +345,6 @@ namespace GeorgianGym.Migrations
                         .HasConstraintName("FK_Users_MembershipId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("GeorgianGym.Models.Schedule", "Schedule")
-                        .WithMany()
-                        .HasForeignKey("ScheduleId");
 
                     b.HasOne("GeorgianGym.Models.Trainer", "Trainer")
                         .WithMany("Userss")

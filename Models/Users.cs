@@ -22,9 +22,8 @@ namespace GeorgianGym.Models
 
         public Trainer Trainer { get; set; }
         public Membership Membership { get; set; }
-        public Schedule Schedule { get; set; }
+        public List<Schedule> Schedule { get; set; }
 
-        public List<Schedule> Schedules { get; set; }
 
 
     }

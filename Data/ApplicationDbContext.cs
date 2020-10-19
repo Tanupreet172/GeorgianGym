@@ -9,7 +9,6 @@ namespace GeorgianGym.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
-        public DbSet<Exercise> Exercises { get; set; }
         public DbSet<Membership> Memberships { get; set; }
         public DbSet<Schedule> Schedules { get; set; }
         public DbSet<Trainer> Trainers { get; set; }
@@ -31,16 +30,12 @@ namespace GeorgianGym.Data
                     .HasConstraintName("FK_Users_TrainerId");
                  
             builder.Entity<Schedule>()
-                    .HasOne(t=> t.Users)
-                    .WithMany(t=>t.Schedules)
-                    .HasForeignKey(t => t.UserId)
+                    .HasOne(t=>t.Users)
+                    .WithMany(t=>t.Schedule)
+                    .HasForeignKey(t=>t.UsersId)
                     .HasConstraintName("FK_Schedule_UserId");
-            builder.Entity<Schedule>()
-                    .HasOne(t => t.Exercises)
-                    .WithMany(t => t.Schedules)
-                    .HasForeignKey(t => t.ExerciseId)
-                    .HasConstraintName("FK_Schedule_ExerciseId");
-            
+
+
         }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
