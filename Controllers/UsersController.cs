@@ -30,12 +30,9 @@ namespace GeorgianGym.Controllers
             // var schedule =await _context.Schedules.Include(u => u.ScheduleId).FirstOrDefaultAsync(m => m.UsersId == id);
             // var schedule = await _context.Schedules.FindAsync(id);
             // ViewData["userId"] = new SelectList(_context.Schedules, "UserId", "UserId", schedule.UsersId);
-            // var applicationDbContext = _context.Schedules.Include(s => s.Users).ThenInclude(s=>s.UserId);
-            //return View(await applicationDbContext.ToListAsync());
-            var schedule = await _context.Schedules
-               .Include(p => p.Users)
-               .FirstOrDefaultAsync(m => m.UsersId == id);
-            return View(schedule);
+            var applicationDbContext = _context.Schedules.Include(s => s.Users);
+            return View(await applicationDbContext.ToListAsync());
+            
         }
         // GET: Users/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -61,6 +58,7 @@ namespace GeorgianGym.Controllers
         public IActionResult Create()
         {
             ViewData["MembershipId"] = new SelectList(_context.Memberships, "MembershipId", "MembershipId");
+            ViewData["trainerName"] = new SelectList(_context.Trainers, "trainerName", "trainerName");
             ViewData["TrainerId"] = new SelectList(_context.Trainers, "TrainerId", "TrainerId");
             return View();
         }
@@ -80,6 +78,7 @@ namespace GeorgianGym.Controllers
             }
             ViewData["MembershipId"] = new SelectList(_context.Memberships, "MembershipId", "MembershipId", users.MembershipId);
             ViewData["TrainerId"] = new SelectList(_context.Trainers, "TrainerId", "TrainerId", users.TrainerId);
+            ViewData["trainerName"] = new SelectList(_context.Trainers, "trainerName", "trainerName", users.Trainer.trainerName);
             return View(users);
         }
 
