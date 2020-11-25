@@ -23,7 +23,7 @@ namespace GeorgianGym.Controllers
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Schedules.Include(s => s.Users);
-            return View(await applicationDbContext.ToListAsync());
+            return View(await applicationDbContext.OrderBy(e => e.exercise).ToListAsync());
         }
 
         // GET: Schedules/Details/5

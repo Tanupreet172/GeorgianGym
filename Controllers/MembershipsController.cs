@@ -22,7 +22,7 @@ namespace GeorgianGym.Controllers
         // GET: Memberships
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Memberships.ToListAsync());
+            return View(await _context.Memberships.OrderBy(m => m.type).ToListAsync());
         }
 
         // GET: Memberships/Details/5
