@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - GeorgianGym</title>
+    <title>@ViewData["Title"] - Georgian Gym</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-darkly.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 
@@ -26,7 +26,8 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
+                        @if (User.Identity.IsAuthenticated)
+                        { <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Index">Users</a>
                         </li>
                         <li class="nav-item">
@@ -38,6 +39,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Schedules" asp-action="Index">Schedules</a>
                         </li>
+                        }
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
