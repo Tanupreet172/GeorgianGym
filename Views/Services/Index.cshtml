@@ -1,0 +1,22 @@
+﻿@model IEnumerable<GeorgianGym.Models.Product>
+
+@{
+    ViewData["Title"] = "Choose the products of you choice!";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <h2><b><i>Choose the products of your choice!</i></b></h2>
+
+    @foreach (var item in Model)
+    {
+        <div class="card1">
+            <img src="~/img/twss2-prem-go_thumb.png" style="width:100%">
+            <div class="container11">
+               <h5><i>@Html.DisplayFor(model => item.Name)</i></h5>
+                <h5><i>@Html.DisplayFor(modelItem => item.Description)</i></h5>
+                <h5><i>Price: @Html.DisplayFor(modelItem => item.Price)</i></h5>
+                <p><button><i>Add to Cart</i></button></p>
+            </div>
+        </div>
+    }
+</div>

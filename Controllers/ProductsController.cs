@@ -10,23 +10,23 @@ using GeorgianGym.Models;
 using Microsoft.AspNetCore.Authorization;
 
 namespace GeorgianGym.Controllers
-{   [Authorize]
-    public class MembershipsController : Controller
+{  [Authorize]
+    public class ProductsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public MembershipsController(ApplicationDbContext context)
+        public ProductsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Memberships
+        // GET: Products
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Memberships.OrderBy(m => m.type).ToListAsync());
+            return View(await _context.Product.OrderBy(p=>p.Name).ToListAsync());
         }
 
-        // GET: Memberships/Details/5
+        // GET: Products/Details/5
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Details(int? id)
         {
@@ -35,41 +35,40 @@ namespace GeorgianGym.Controllers
                 return NotFound();
             }
 
-            var membership = await _context.Memberships
-                .FirstOrDefaultAsync(m => m.MembershipId == id);
-            if (membership == null)
+            var product = await _context.Product
+                .FirstOrDefaultAsync(m => m.ProductId == id);
+            if (product == null)
             {
                 return NotFound();
             }
 
-            return View(membership);
+            return View(product);
         }
 
-        // GET: Memberships/Create
+        // GET: Products/Create
         [Authorize(Roles = "Administrator")]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Memberships/Create
+        // POST: Products/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> Create([Bind("MembershipId,type,price,description")] Membership membership)
+        public async Task<IActionResult> Create([Bind("ProductId,Name,Description,Price")] Product product)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(membership);
+                _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(membership);
+            return View(product);
         }
 
-        // GET: Memberships/Edit/5
+        // GET: Products/Edit/5
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -78,23 +77,23 @@ namespace GeorgianGym.Controllers
                 return NotFound();
             }
 
-            var membership = await _context.Memberships.FindAsync(id);
-            if (membership == null)
+            var product = await _context.Product.FindAsync(id);
+            if (product == null)
             {
                 return NotFound();
             }
-            return View(membership);
+            return View(product);
         }
 
-        // POST: Memberships/Edit/5
+        // POST: Products/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> Edit(int id, [Bind("MembershipId,type,price,description")] Membership membership)
+        public async Task<IActionResult> Edit(int id, [Bind("ProductId,Name,Description,Price")] Product product)
         {
-            if (id != membership.MembershipId)
+            if (id != product.ProductId)
             {
                 return NotFound();
             }
@@ -103,12 +102,12 @@ namespace GeorgianGym.Controllers
             {
                 try
                 {
-                    _context.Update(membership);
+                    _context.Update(product);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MembershipExists(membership.MembershipId))
+                    if (!ProductExists(product.ProductId))
                     {
                         return NotFound();
                     }
@@ -119,10 +118,10 @@ namespace GeorgianGym.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(membership);
+            return View(product);
         }
 
-        // GET: Memberships/Delete/5
+        // GET: Products/Delete/5
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Delete(int? id)
         {
@@ -131,31 +130,31 @@ namespace GeorgianGym.Controllers
                 return NotFound();
             }
 
-            var membership = await _context.Memberships
-                .FirstOrDefaultAsync(m => m.MembershipId == id);
-            if (membership == null)
+            var product = await _context.Product
+                .FirstOrDefaultAsync(m => m.ProductId == id);
+            if (product == null)
             {
                 return NotFound();
             }
 
-            return View(membership);
+            return View(product);
         }
 
-        // POST: Memberships/Delete/5
+        // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var membership = await _context.Memberships.FindAsync(id);
-            _context.Memberships.Remove(membership);
+            var product = await _context.Product.FindAsync(id);
+            _context.Product.Remove(product);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool MembershipExists(int id)
+        private bool ProductExists(int id)
         {
-            return _context.Memberships.Any(e => e.MembershipId == id);
+            return _context.Product.Any(e => e.ProductId == id);
         }
     }
 }

@@ -27,7 +27,7 @@ namespace GeorgianGym.Controllers
         }
 
         // GET: Trainers/Details/5
-        [AllowAnonymous]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -46,6 +46,7 @@ namespace GeorgianGym.Controllers
         }
 
         // GET: Trainers/Create
+        [Authorize(Roles = "Administrator")]
         public IActionResult Create()
         {
             return View();
@@ -56,6 +57,7 @@ namespace GeorgianGym.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Create([Bind("TrainerId,trainerName,gender,trainerType")] Trainer trainer)
         {
             if (ModelState.IsValid)
@@ -67,7 +69,9 @@ namespace GeorgianGym.Controllers
             return View(trainer);
         }
 
+
         // GET: Trainers/Edit/5
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -88,6 +92,7 @@ namespace GeorgianGym.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Edit(int id, [Bind("TrainerId,trainerName,gender,trainerType")] Trainer trainer)
         {
             if (id != trainer.TrainerId)
@@ -119,6 +124,7 @@ namespace GeorgianGym.Controllers
         }
 
         // GET: Trainers/Delete/5
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -139,6 +145,7 @@ namespace GeorgianGym.Controllers
         // POST: Trainers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var trainer = await _context.Trainers.FindAsync(id);

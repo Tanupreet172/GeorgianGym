@@ -10,7 +10,8 @@ using GeorgianGym.Models;
 using Microsoft.AspNetCore.Authorization;
 
 namespace GeorgianGym.Controllers
-{   [Authorize]
+{
+    [Authorize(Roles = "Administrator")]
     public class SchedulesController : Controller
     {
         private readonly ApplicationDbContext _context;

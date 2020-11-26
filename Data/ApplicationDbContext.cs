@@ -42,5 +42,6 @@ namespace GeorgianGym.Data
         {
 
         }
+        public DbSet<GeorgianGym.Models.Product> Product { get; set; }
     }
 }
