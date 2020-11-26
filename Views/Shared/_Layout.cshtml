@@ -17,56 +17,46 @@
         <nav style='background: crimson' class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div>
                 <a class="navbar-brand"  asp-area="" asp-controller="Home" asp-action="Index"><b><span style="font-size:17px" class="material-icons">
-    fitness_center
-</span><i class="brand">Georgian Gym</i></b></a>
+                  fitness_center</span><i class="brand">Georgian Gym</i></b></a>
 
                 <div style="display:inline-block" class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse navIt">
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"><span  style="font-size:17px" class="material-icons">
-    home
-</span><i>Home</i></a>
+                             home</span><i>Home</i></a>
                         </li>
                         @if (User.IsInRole("Administrator"))
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Users" asp-action="Index"><span style="font-size:17px" class="material-icons">
-    account_box
-</span><i>Users</i></a>
+                                account_box</span><i>Users</i></a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Schedules" asp-action="Index"><span style="font-size:17px" class="material-icons">
-    calendar_today
-</span><i>Schedules</i></a>
-                            </li>
+                           
                         }
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Trainers" asp-action="Index"><span style="font-size:17px" class="material-icons">
-    supervised_user_circle
-</span><i>Trainers</i></a>
+                                 supervised_user_circle</span><i>Trainers</i></a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Memberships" asp-action="Index"><span style="font-size:17px" class="material-icons">
-    card_membership
-</span><i>Memberships</i></a>
+                                 card_membership</span><i>Memberships</i></a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index"><span style="font-size:17px" class="material-icons">
-    shop_two
-</span><i>Products</i></a>
+                                shop_two</span><i>Products</i></a>
                             </li>
 
                         }
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Services" asp-action="Index"><i style="font-size:17px" class="material-icons">store</i><i>Services & Products</i></a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Services" asp-action="Index"><i style="font-size:17px" class="material-icons">
+                                store</i><i>Services & Products</i></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy"><span style="font-size:17px" class="material-icons">
-    lock
-</span><i>Privacy</i></a>
+                            lock</span><i>Privacy</i></a>
                         </li>
                     </ul>
                 </div>

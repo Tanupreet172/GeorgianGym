@@ -31,7 +31,7 @@ namespace GeorgianGym.Models
 
         public Trainer Trainer { get; set; }
         public Membership Membership { get; set; }
-        public List<Schedule> Schedule { get; set; }
+       
 
 
 

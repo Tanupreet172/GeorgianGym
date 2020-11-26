@@ -26,15 +26,7 @@ namespace GeorgianGym.Controllers
             var applicationDbContext = _context.Userss.Include(u => u.Membership).Include(u => u.Trainer);
             return View(await applicationDbContext.OrderBy(t =>t.name).ToListAsync());
         }
-        public async Task<IActionResult> scheduleDetails(int? id)
-        {
-            // var schedule =await _context.Schedules.Include(u => u.ScheduleId).FirstOrDefaultAsync(m => m.UsersId == id);
-            // var schedule = await _context.Schedules.FindAsync(id);
-            // ViewData["userId"] = new SelectList(_context.Schedules, "UserId", "UserId", schedule.UsersId);
-            var applicationDbContext = _context.Schedules.Include(s => s.Users);
-            return View(await applicationDbContext.ToListAsync());
-            
-        }
+       
         // GET: Users/Details/5
         [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)

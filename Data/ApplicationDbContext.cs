@@ -10,7 +10,7 @@ namespace GeorgianGym.Data
     public class ApplicationDbContext : IdentityDbContext
     {
         public DbSet<Membership> Memberships { get; set; }
-        public DbSet<Schedule> Schedules { get; set; }
+       
         public DbSet<Trainer> Trainers { get; set; }
         public DbSet<Users> Userss { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
@@ -29,11 +29,7 @@ namespace GeorgianGym.Data
                     .HasForeignKey(t => t.TrainerId)
                     .HasConstraintName("FK_Users_TrainerId");
                  
-            builder.Entity<Schedule>()
-                    .HasOne(t=>t.Users)
-                    .WithMany(t=>t.Schedule)
-                    .HasForeignKey(t=>t.UsersId)
-                    .HasConstraintName("FK_Schedule_UserId");
+           
 
 
         }
