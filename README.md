@@ -13,6 +13,8 @@ SQL
 TOOLS
 IDE: Visual Studio,
 Database: Microsoft SQL server,
-Bootstrap from Bootswatch
+Bootstrap from Bootswatch,
+Icons: https://fonts.googleapis.com/icon?family=Material+Icons
+
 
 INSTRUCTOR NAME : Tom Marazzo
