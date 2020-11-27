@@ -1,9 +1,6 @@
 # GeorgianGym
-This is basically a gym website where a user can access the gym facilities.
-This website allows a user to enter his info and register for the gym to become the member of gym.
-User can create his profile and edit it as well.
-Also user can choose trainer, edit it as well. 
-Similarly CRUD operations can be performed with membership and schedule as well.
+This is basically a gym website where a user can buy gym products, buy memberships and  book trainers.
+This website allows the admin to perform CRUD operations with different fields.
 
 SKILLSET USED IN THE PROJECT
 MVC Framework,
